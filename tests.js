@@ -1018,6 +1018,7 @@ window.Specs = {
     "css3-align": {
         "title": "Box Alignment",
         "properties": {
+            // Rename 'true' to 'unsafe'
             "justify-self": ["auto", "stretch", "baseline", "last-baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
             "align-self": ["auto", "stretch", "baseline", "last-baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
             "justify-items": ["auto", "stretch", "baseline", "last-baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "legacy  left", "legacy right", "legacy center"],
@@ -1213,7 +1214,13 @@ window.Specs = {
         "title": "Masking",
         "group": "fxtf",
         "properties": {
-            "clip-path": ["url('#clip')", "inset(16% 35px 2em 3.5vw)", "inset(calc(100% - 210px) 19px)", "inset(10% round 10% 40% / 10% 40%)", "circle()", "circle(38.6% at 56% 51%)", "circle(closest-side)", "circle(farthest-side)", "ellipse()", "ellipse(26% 45% at 58% 52%)", "ellipse(closest-side)", "ellipse(farthest-side)", "polygon(50% 0%, 0% 100%, 100% 100%)", "polygon(5em 13px, 76% 280px, 0 230px)", "polygon(nonzero, 5em 13px, 76% 280px, 0 230px)", "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)", "border-box", "padding-box", "content-box", "margin-box", "fill-box", "stroke-box", "view-box", "circle() border-box", "none"],
+            "clip-path": [
+            "none",
+            "url('#clip')",
+            // basic shapes for clip-path
+            // Firefox used flag: layout.css.clip-path-shapes.enabled
+            // https://bugzilla.mozilla.org/show_bug.cgi?id=1110460
+            "inset(16% 35px 2em 3.5vw)", "inset(calc(100% - 210px) 19px)", "inset(10% round 10% 40% / 10% 40%)", "circle()", "circle(38.6% at 56% 51%)", "circle(closest-side)", "circle(farthest-side)", "ellipse()", "ellipse(26% 45% at 58% 52%)", "ellipse(closest-side farthest-side)", "ellipse(farthest-side farthest-side)", "polygon(50% 0%, 0% 100%, 100% 100%)", "polygon(5em 13px, 76% 280px, 0 230px)", "polygon(nonzero, 5em 13px, 76% 280px, 0 230px)", "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)", "border-box", "padding-box", "content-box", "margin-box", "fill-box", "stroke-box", "view-box", "circle() border-box"],
             "clip-rule": ["nonzero", "evenodd"],
             "mask-type": ["alpha", "luminance"],
             "mask-image": ["none", "linear-gradient(black 0%, transparent 100%)", "url(image.png)"],

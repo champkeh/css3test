@@ -12,7 +12,7 @@ window.Specs = {
             "background-attachment":
                                     ["local"]
                                     .concat(["scroll", "local", "fixed"].times(3, 3, ", ")),
-            "background-position": ["bottom 10px right 20px", "bottom 10px right", "top right 10px"],
+            "background-position": ["bottom 10px right 20px", "bottom 10px right", "right 3em bottom 10px", "top right 10px"],
             "background-clip": ["border-box", "padding-box", "content-box"]
                                 .concat(["border-box", "padding-box", "content-box"].times(3, 3, ", ")),
             "-webkit-background-clip": ["padding", "border"].concat(["padding", "border", "border-box", "padding-box", "content-box"].times(3, 3, ", ")),
@@ -81,15 +81,17 @@ window.Specs = {
             "properties": [
                 "background",
                 "background-image",
+                "list-style",
                 "list-style-image",
                 "border-image",
                 "border-image-source",
-                "content",
                 "mask-image",
                 "mask-box-image",
                 "mask-border-source",
-                // "cursor",
-                // "mask",
+                "cursor",
+                "mask",
+                "content",
+                "shape-outside"
             ],
             "linear-gradient()": [
                 "linear-gradient(white, black)",
@@ -100,8 +102,8 @@ window.Specs = {
                 "linear-gradient(white 0, black)",
                 "linear-gradient(white, #f06, black)",
                 "linear-gradient(currentColor, black)",
-                "linear-gradient(30grad left 35px, red, blue)",
-                "linear-gradient(10deg 20px, red, blue)",
+                "linear-gradient(30grad, #000 35px, red, blue)",
+                "linear-gradient(10deg, red, blue)",
                 "linear-gradient(90deg, red, transparent, blue)",
                 "linear-gradient(to right, white, black)",
                 "linear-gradient(to top right, red, white, blue)",
@@ -110,13 +112,9 @@ window.Specs = {
                 "linear-gradient(to left bottom, red, white, blue)",
                 "linear-gradient(to bottom, yellow 0%, blue 100%)",
                 "linear-gradient(red -50%, white 25%, blue 100%)",
+                "linear-gradient(calc(10deg), red, blue)",
+                "linear-gradient(red calc(50% - 30px), white 25%, blue 100%)",
                 "linear-gradient(red -50px, white calc(-25px + 50%), blue 100%)",
-                //
-
-                "linear-gradient(10% 10em, red, blue)",
-                "linear-gradient(44px top, red, blue)",
-                "linear-gradient(20% bottom -300deg, red, blue)",
-                "linear-gradient(center 20% 1.95929rad, red, blue)",
                 // CSS image 4 color interpolation hint(aka Midpoints)
                 // Webkit: https://bugs.webkit.org/show_bug.cgi?id=137171
                 // Chrome: https://crbug.com/420527
@@ -126,7 +124,14 @@ window.Specs = {
                 "linear-gradient(218rad, red 50%, 50%, blue 50%)",
                 "linear-gradient(red, 50%, blue)",
                 "linear-gradient(.36rad, red 50%, 20%, blue 50%)",
-                "linear-gradient(to right bottom, red, 20%, green 50%, 65%, blue)"
+                "linear-gradient(to right bottom, red, 20%, green 50%, 65%, blue)",
+                "linear-gradient(yellow, calc(50% - 60px), green)",
+
+                // Multiple Color-Stop Positions
+                // https://bugs.chromium.org/p/chromium/issues/detail?id=707047
+                "linear-gradient(black 10% 20%, white)",
+                "linear-gradient(95deg, black, white 100px 200px)",
+                "linear-gradient(to right, black 10% 20%, 10%, white 200px)"
             ],
             "radial-gradient()": [
                 "radial-gradient(white, black)",
@@ -136,16 +141,47 @@ window.Specs = {
                 "radial-gradient(circle closest-corner, white, black)",
                 "radial-gradient(farthest-side, white, black)",
                 "radial-gradient(circle farthest-side, white, black)",
-                "radial-gradient(50%, white, black)",
-                "radial-gradient(60% 60%, white, black)"
-                /*,
-                        "radial-gradient(at 60% 60%, white, black)",
-                        "radial-gradient(30% 30% at 20% 20%, white, black)",
-                        "radial-gradient(5em circle at top left, yellow, blue)",
-                        "radial-gradient(circle farthest-side at top left, white, black)"*/
+                "radial-gradient(90px, white, black)",
+                "radial-gradient(60% 0, white, black)",
+                "radial-gradient(0% 60%, white, black)",
+                "radial-gradient(80px 60%, yellow, blue)",
+                "radial-gradient(20px 30px at 20px 30px, yellow, green)",
+                "radial-gradient(closest-side at 20px 30px, yellow, green)",
+                "radial-gradient(closest-side circle at 20px 30px, yellow, green)",
+                "radial-gradient(80px at 60% bottom, yellow, blue)",
+                "radial-gradient(80px circle at 60% bottom, yellow, blue)",
+                "radial-gradient(10em circle at left 60%, yellow, blue)",
+                "radial-gradient(circle 10em at left 60%, yellow, blue)",
+                "radial-gradient(circle at 60%, yellow, blue)",
+                "radial-gradient(circle at 20% 60%, yellow, blue)",
+                "radial-gradient(circle at left 60%, yellow, blue)",
+                "radial-gradient(calc(0px), white, black)",
+                "radial-gradient(calc(30px), white, black)",
+                "radial-gradient(50% calc(50% - 10%), white calc(-25px + 50%), black)",
+                "radial-gradient(at 50% calc(50% - 30px), white calc(-25px + 50%), black)",
+
+                // CSS edge offsets <position>
+                "radial-gradient(50% 50% at left 20px bottom 30px , yellow, green)",
+                "radial-gradient(50% 50% at right 10px bottom, yellow, green)",
+                "radial-gradient(50% 50% at right 10px bottom 10px, yellow, green)",
+                "radial-gradient(50% 50% at bottom right 10px , yellow, green)",
+                "radial-gradient(circle at bottom right 10px , yellow, green)",
+                "radial-gradient(ellipse at bottom right 10px , yellow, green)",
+
+                // Multiple Color-Stop Positions
+                // https://bugs.chromium.org/p/chromium/issues/detail?id=707047
+                "radial-gradient(black 10% 20%, white)",
+                "radial-gradient(50% 20%, black, white 100px 200px)",
+                "radial-gradient(circle, black 10% 20%, 10%, white 200px)"
             ],
-            "repeating-linear-gradient()": "repeating-linear-gradient(white, black)",
-            "repeating-radial-gradient()": "repeating-radial-gradient(white, black)",
+            "repeating-linear-gradient()": [
+                "repeating-linear-gradient(white, black)",
+                "repeating-linear-gradient(white, red 0 10%, blue 0 300px, black)"
+                ],
+            "repeating-radial-gradient()": [
+                "repeating-radial-gradient(white, black)",
+                "repeating-radial-gradient(white, red 0 10%, blue 0 300px, black)"
+              ],
             "image-set()": [
                 "image-set('foo.png' 1x, 'foo-2x.png' 2x);",
                 "image-set('foo.png' 1x, 'foo-2x.png' 2x #ccc);",
@@ -174,7 +210,9 @@ window.Specs = {
                 "cross-fade(url(foo.png), url(bar.png), 20%)",
                 "cross-fade(url(foo.png), url(bar.png), 100%)",
                 "cross-fade(url(foo.png), url(bar.png), 0.2)",
-                "cross-fade(url(foo.png), url(bar.png), -0.2)"
+                "cross-fade(url(foo.png), url(bar.png), -0.2)",
+                "cross-fade(20% url(foo.png), #000)",
+                "cross-fade(100% url(foo.png), rgba(89, 22, 13, 0.6))"
             ]
         },
         "properties": {
@@ -193,15 +231,17 @@ window.Specs = {
             "properties": [
                 "background",
                 "background-image",
+                "list-style",
                 "list-style-image",
                 "border-image",
                 "border-image-source",
                 "cursor",
-                "content",
                 "mask",
+                "content",
                 "mask-image",
                 "mask-box-image",
-                "mask-border-source"
+                "mask-border-source",
+                "shape-outside"
             ],
 
             "image()": [
@@ -216,17 +256,77 @@ window.Specs = {
             ],
 
             "conic-gradient()": [
-                "conic-gradient(white, black)",
-                "conic-gradient(circle, white, black)",
-                "conic-gradient(ellipse, white, black)",
-                "conic-gradient(closest-corner, white, black)",
-                "conic-gradient(circle closest-corner, white, black)",
-                "conic-gradient(farthest-side, white, black)",
-                "conic-gradient(circle farthest-side, white, black)",
-                "conic-gradient(50%, white, black)",
-                "conic-gradient(60% 60%, white, black)"
+                "conic-gradient(#f06, gold)",
+                "conic-gradient(at 50% 50%, #f06, gold)",
+                "conic-gradient(from 0deg, #f06, gold)",
+                "conic-gradient(from 0deg at center, #f06, gold)",
+                "conic-gradient(from 45deg at left bottom, yellow, green)",
+                "conic-gradient(from 45deg at 50px -10px, yellow, green)",
+                "conic-gradient(#f06 0%, gold 100%)",
+                "conic-gradient(#f06 0deg, gold 1turn)",
+                "conic-gradient(#eee .1turn, black, #eee 326deg)",
+                "conic-gradient(red, yellow, lime, aqua, blue, magenta, red)",
+                "conic-gradient(black 25%, white 0deg, white 50%, black 0deg, black 75%, white 0deg)",
+                "conic-gradient(black 25%, white 0deg 50%, black 0deg 75%, white 0deg)",
+
+                "conic-gradient(green calc(360deg), transparent 0 100%)",
+                "conic-gradient(green 0 calc(360deg), red 0 100%)",
+                "conic-gradient(green 360deg, red 0 calc(100%))",
+                "conic-gradient(green 360deg, red calc(0deg) calc(100%))",
+                "conic-gradient(green 360deg, red calc(0%) 100%)",
+                "conic-gradient(at calc(0%) 50%, #f06, gold)",
+                "conic-gradient(at calc(50%) 50%, #f06, gold)",
+                "conic-gradient(from calc(0deg) at center, #f06, gold)",
+                "conic-gradient(from calc(50deg) at center, #f06, gold)",
+                "conic-gradient(from 45deg at calc(50px) calc(-10px), yellow, green)",
+                "conic-gradient(from 45deg at calc(50%) calc(100% - 10px), yellow, green)",
+
+                // 插值
+                "conic-gradient(#f06, 20%, gold)",
+                "conic-gradient(#f06, 20%, gold, 30deg, green)",
+                "conic-gradient(#f06, 20deg, gold)",
+                "conic-gradient(#f06, 20deg, gold, 60deg, green)",
+                "conic-gradient(#f06, calc(20deg), gold)",
+                "conic-gradient(#f06, calc(20%), gold)",
+                "conic-gradient(#f06, calc(20% + 15deg), gold)",
+                "conic-gradient(#f06, calc(20%), gold, calc(60%), green)",
+
+
+                // Multiple Color-Stop Positions
+                // https://bugs.chromium.org/p/chromium/issues/detail?id=707047
+                "conic-gradient(black 10% 20%, white)",
+                "conic-gradient(black, white 270deg 360deg)",
+                "conic-gradient(black 10% 20%, white 270deg 360deg)",
+                "conic-gradient(blue 10% 20%, blue 30%, white)",
+                "conic-gradient(blue 10% 20%, blue 30% 40%, white)",
+                "conic-gradient(blue 10%, blue 20%, #fff 270deg, #fff 360deg)",
+                "conic-gradient(blue 10% 20%, white 270deg 360deg)",
+                "conic-gradient(blue 10% 20%, blue 30%, white)",
+                "conic-gradient(black, white calc(270deg) calc(360deg))",
+                "conic-gradient(blue calc(10%) calc(20%), blue 30%, white)",
+                "conic-gradient(blue calc(10%) calc(45deg), blue 30%, white)",
+                "conic-gradient(blue calc(10%) calc(45deg), blue calc(30%) calc(160deg), white)",
+
+                // CSS edge offsets <position>
+                "conic-gradient(at left 50px bottom 30% , yellow, green)",
+                "conic-gradient(at right 30% bottom, yellow, green)",
+                "conic-gradient(from 0deg at right 60px bottom -100%, yellow, green)",
+                "conic-gradient(from 0 at right 60px bottom -100%, yellow, green)",
+                "conic-gradient(from -45deg at bottom right 10px , yellow, green)",
+                "conic-gradient(at right calc(30% - 20px) bottom, yellow, green)",
+                "conic-gradient(from calc(-45deg) at bottom right 10px , yellow, green)"
             ],
-            "repeating-conic-gradient()": "repeating-conic-gradient(white, black)"
+            "repeating-conic-gradient()": [
+                "repeating-conic-gradient(white, black)",
+                "repeating-conic-gradient(gold, #f06 20deg)",
+                "repeating-conic-gradient(black 0deg, black 25%, white 0deg, white 50%)",
+                "repeating-conic-gradient(black, black 15deg, white 0deg, white 30deg)",
+                "repeating-conic-gradient(hsla(0,0%,100%,.2) 0deg, hsla(0,0%,100%,.2) 15deg, transparent 0deg, transparent 30deg)",
+
+                "repeating-conic-gradient(black 0deg 25%, white 0deg 50%)",
+                "repeating-conic-gradient(black 0deg 15deg, white 0deg 30deg)",
+                "repeating-conic-gradient(hsla(0,0%,100%,.2) 0deg 15deg, transparent 0deg 30deg)"
+              ]
         }
     },
 
@@ -305,10 +405,15 @@ window.Specs = {
             ":past": ":past",
             ":future": ":future",
             ":matches()": ["*|*:matches(:hover, :focus)", "*|*:matches(*:hover, *:focus)", ".foo :matches(h1, h2, h3, h4, h5, h6)", ":matches(section, nav) h1", ":matches(section, nav) ~ :matches(h1, h2)", ":matches(:hover, :focus)", ":matches(h1 + h2, h3 > h4)", ":matches(.foo :matches(h1, h2))", ":matches(:matches(h1, h2), h3)", ":matches(:not(.foo, .bar))",
-              ":matches(::before)", ":matches(::after)",
+              ":matches(::before)", ":matches(::after)", ":matches(::after, ::before)"
             ],
-            ":any()": [".foo :any(h1, h2, h3, h4, h5, h6)", ":any(section, nav) h1", ":any(section, nav) ~ :any(h1, h2)", ":any(:hover, :focus)"],
-            ":not()": [":not(element, .class, #id)", ":not(element, .class, #id):not(.foo, .bar)","h2:not(:first-of-type, :last-of-type)", ":not(:matches(h1, h2))", ":not(:matches(h1, h2), h3)", ":not(:matches(:not(h1, h2)))", ":not(:not(.foo), .bar)", ":not(:not(:not(.foo)), .bar)", "img:not(.foo[alt][src])"],
+            ":any()": [".foo :any(h1, h2, h3, h4, h5, h6)", ":any(section, nav) h1", ":any(section, nav) ~ :any(h1, h2)", ":any(:hover, :focus)",
+                ":any(::before)", ":any(::after)", ":any(::after, ::before)"
+            ],
+            ":not()": [":not(element, .class, #id)", ":not(element, .class, #id):not(.foo, .bar)","h2:not(:first-of-type, :last-of-type)", ":not(:matches(h1, h2))", ":not(:matches(h1, h2), h3)", ":not(:matches(:not(h1, h2)))", ":not(:not(.foo), .bar)", ":not(:not(:not(.foo)), .bar)", "img:not(.foo[alt][src])",
+                // 模拟 :nth-child(n of S)
+                ".foo:not(.foo ~ .foo)"
+            ],
             ":has()": ["a:has(> img)","dt:has(+ dt)","section:not(:has(h1, h2, h3, h4, h5, h6))"],
             ":focus-within": ":focus-within",
             ":drop": ":drop",
@@ -333,8 +438,8 @@ window.Specs = {
             ":future": ":future",
             // nth of
             // https://bugzilla.mozilla.org/show_bug.cgi?id=854148
-            ":nth-child(An+B [of s]?)": [":nth-child(-n+3 of li.important)", ":nth-child(even of :not([hidden]))", "tr:nth-child(even of tr:nth-child(odd))"],
-            ":nth-last-child(An+B [of s]?)": [":nth-last-child(-n+3 of li.important)", ":nth-last-child(even of :not([hidden]))"],
+            ":nth-child(An+B [of s]?)": [":nth-child(-n+3 of li.important)", ":nth-child(even of :not([hidden]))", "tr:nth-child(even of tr:nth-child(odd))", ":nth-child(1 of li.foo)", "li:nth-child(1 of .foo)"],
+            ":nth-last-child(An+B [of s]?)": [":nth-last-child(-n+3 of li.important)", ":nth-last-child(even of :not([hidden]))", ":nth-last-child(1 of .foo)"],
             ":lang()": [":lang(en, de-DE)", ":lang('*-Hant')", ":lang('*-Hant-CN')", ":lang(zh, '*-hant')", ":lang(en-)", ":lang(en--)"],
             //https://bugs.webkit.org/show_bug.cgi?id=118162
             //https://bugzilla.mozilla.org/show_bug.cgi?id=1069012
@@ -376,9 +481,24 @@ window.Specs = {
             // Renamed ::content to ::slotted.
             // https://drafts.csswg.org/css-scoping/#changes
             // https://codereview.chromium.org/1523843004/
+            // "::content": "::content",
             "::slotted": "::slotted",
-            "::content": "::content",
+            "::slotted()": ["::slotted(.foo)", "::slotted(*)"],
             "::region": "#region-1::region p",
+            /*
+            For those who are following this issue about /deep/ and '>>>' combinator,
+            here are the status as of now:
+
+            - /deep/ is for Shadow DOM v0 and still available in Chrome, but deprecated.
+            - '>>>' is implemented for querySelector (not for CSS) behind the flag
+              (chrome://flags/#enable-experimental-web-platform-features) on M56+.
+              Only works for V1 open shadows.
+            - https://github.com/w3c/webcomponents/issues/78 is the active thread to
+              discuss this in the spec.
+              Apple recently proposed an idea of new API
+              (collectMatchingElementsInFlatTree).
+            */
+            // https://bugs.chromium.org/p/chromium/issues/detail?id=633007#c37
             ">>>": ["x-foo >>> span", ">>> .foo", ">>> #bar"],
             // Rename "/deep" to ">>>"
             // https://code.google.com/p/chromium/issues/detail?id=446051
@@ -532,6 +652,14 @@ window.Specs = {
         }
     },
 
+    "css-ui-4": {
+        "title": "Basic User Interface Level 4",
+        "properties": {
+            "user-select": ["auto", "text", "none", "all", "contain"],
+            "appearance": ["auto", "none"]
+        }
+    },
+
     "css3-transitions": {
         "title": "Transitions",
         "properties": {
@@ -650,14 +778,20 @@ window.Specs = {
               "start", "end", "justify", "match-parent", "justify-all",
               // Firefox 27 support true value(using "layout.css.text-align-true-value.enabled")
               // https://bugzilla.mozilla.org/show_bug.cgi?id=929991
-              "center true", "start true", "justify true", "justify-all true",
-              "center safe", "center unsafe", "right unsafe", "justify safe", "justify unsafe"
+              // Firefox 47 rename true to unsafe
+              "start safe", "end safe", "justify safe", "justify-all safe",
+              "start unsafe", "end unsafe", "justify unsafe", "justify-all unsafe"
             ],
             "text-align-last": [
               "auto", "start", "end", "left", "right", "center", "justify",
-              "auto true", "center true", "start true", "justify true", "justify-all true"
+              "auto safe", "center safe", "start safe", "justify safe",
+              "auto unsafe", "center unsafe", "start unsafe", "justify unsafe"
             ],
-            "text-align-all": ["start", "end", "left", "right", "center", "justify", "match-parent"],
+            "text-align-all": [
+              "start", "end", "left", "right", "center", "justify", "match-parent",
+              "start safe", "end safe", "left safe", "right safe", "center safe", "justify safe", "match-parent safe",
+              "start unsafe", "end unsafe", "left unsafe", "right unsafe", "center unsafe", "justify unsafe", "match-parent safe"
+            ],
             "text-justify": ["auto", "none", "inter-word", "inter-ideograph", "inter-character", "inter-cluster", "distribute", "kashida"],
             "word-spacing": ["50%", "1em", "normal"],
             "letter-spacing": ["normal"],
@@ -701,7 +835,10 @@ window.Specs = {
             "text-decoration": [
               // Old value
               "underline",
-              "underline dotted green"
+              "underline dotted green",
+              "underline overline solid red",
+              "line-through overline red dotted",
+              "solid red underline overline line-through",
             ],
             // Blink bug https://code.google.com/p/chromium/issues/detail?id=313888
             "text-underline-position": ["auto", "under", "left", "right", "under left", "under right"],
@@ -741,7 +878,7 @@ window.Specs = {
     },
 
     "css3-fonts": {
-        "title": "Fonts",
+        "title": "Fonts Level 3",
         "properties": {
             // font-size 和 font-family 是必须写的。
             "font": ["0/0 foo", "0 foo", "2em sans-serif", "2em 'Open Sans', sans-serif", "italic 2em 'Open Sans', sans-serif", "italic small-caps bolder 16px/3 cursive",
@@ -776,8 +913,15 @@ window.Specs = {
             ],
             "font-variant-alternates": [
                 "normal",
-                "historical-forms"
+                "historical-forms",
                 // TODO add tests for functions
+                "swash(flowing)",
+                "stylistic(user-defined-ident)",
+                "styleset(user-defined-ident)",
+                "character-variant(user-defined-ident)",
+                "ornaments(user-defined-ident)",
+                "annotation(user-defined-ident)",
+                "swash(ident1) annotation(ident2)"
             ],
             "font-variant-east-asian": [
                 "normal",
@@ -785,7 +929,7 @@ window.Specs = {
                 "full-width", "proportional-width",
                 "ruby", "simplified full-width ruby"
             ],
-            "font-variant": ["none", "sub lining-nums contextual ruby"],
+            "font-variant": ["none", "small-caps", "common-ligatures", "common-ligatures small-caps", "stylistic(user-defined-ident) all-petite-caps sub lining-nums contextual ruby"],
             "font-feature-settings": ["normal", "'c2sc'", "'smcp' on", "'liga' off", "'smcp', 'swsh' 2"],
             "font-language-override": ["normal", "'SRB'"],
             "unicode-range": ["U+416", "U+0-7F", "U+A5, U+4E00-9FFF", "U+30??", "U+0025-00FF, U+4??"]
@@ -793,6 +937,30 @@ window.Specs = {
         "@rules": {
             "@font-face": "@font-face",
             "@font-feature-values": "@font-feature-values Jupiter Sans"
+        }
+    },
+
+    "css-fonts-4": {
+        "title": "Fonts Level 4",
+        "properties": {
+            "font-family": [
+                // https://drafts.csswg.org/css-fonts-4/#valdef-font-family-system-ui
+                // Blink: https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/hvN9YVvIb5c
+                "system-ui",
+                // WebKit: Shipped “-apple-system”, has a bug to alias to “system-ui”.
+                // https://bugs.webkit.org/show_bug.cgi?id=151493
+
+                // Firefox: Shipped “-apple-system” for the compat with WebKit.
+                // https://bugzilla.mozilla.org/show_bug.cgi?id=1226042
+                "-apple-system",
+                "emoji", "math", "fangsong"],
+            "font-style": ["oblique 12deg", "oblique 390deg", "oblique -20deg", "oblique 0deg"],
+            "font-weight": ["0", "90", "860", "1000"],
+            "font-stretch": ["0%", "20%", "100%", "260%", "87.5%"],
+            "min-font-size": ["3px", "3.5em", "10%", "100%"],
+            "max-font-size": ["3px", "3.5em", "10%", "100%"],
+            "font-optical-sizing": ["auto", "none"],
+            "font-variation-settings": ["normal", "'wght' 2, 'wght' 3", "'wdth' 0.7", "'wdth' 3"]
         }
     },
 
@@ -854,9 +1022,10 @@ window.Specs = {
                 "outline",
                 "outline-color"
             ],
-            "rgba()": "rgba(0,0,0,.5)",
-            "hsl()": "hsl(0,0%,0%)",
-            "hsla()": "hsla(0,0%,0%,.5)",
+            "rgb()": ["rgb(255, 0, 0)", "rgb(110%, 0%, 0%)"],
+            "rgba()": ["rgba(0, 0, 0, .5)", "rgba(100%, 0%, 0%, 0.1)"],
+            "hsl()": ["hsl(0, 0%, 0%)", "hsl(120, 100%, 50%)"],
+            "hsla()": ["hsla(0, 0%, 0%, .5)", "hsla(120, 100%, 50%, 1)"],
             "transparent": "transparent",
             "currentColor": "currentColor"
         },
@@ -885,9 +1054,11 @@ window.Specs = {
             ],
             "rebeccapurple": "rebeccapurple",
             "#RGBA": ["#0033ffcc", "#03fc"],
-            "rgba()": "rgba(0, 0, 100%, 80%)",
-            "hsl()": ["hsl(0deg, 80%, 50%)", "hsl(120deg, 20%, 56%)", "hsl(orange greenish, 20%, 56%)", "hsl(orangish(20%) red, 20%, 56%)"],
-            "hsla()": "hsla(0, 0%, 0%, 80%)",
+            // CSS color 4 https://bugzilla.mozilla.org/show_bug.cgi?id=1295456
+            "rgb()": ["rgb(255, 0, 0, 0.6)", "rgb(0%, 0%, 100%, 80%)", "rgb(255, 0, 0, 80%)", "rgb(255 0 0 / 0.6)", "rgb(255 0 0 / 80%)"],
+            "rgba()": ["rgba(0%, 0%, 100%, 80%)", "rgba(255, 0, 0, 80%)", "rgba(255 0 0 / 0.4)", "rgba(255 0 0 / 40%)"],
+            "hsl()": ["hsl(120 60% 70%)", "hsl(0deg, 80%, 50%)", "hsl(120deg, 20%, 56%)", "hsl(120deg 60% 70%)", "hsl(240, 100%, 50%, 0.05)", "hsl(240, 100%, 50%, 5%)", "hsl(240 100% 50% / 0.05)", "hsl(240 100% 50% / 5%)", "hsl(orange greenish, 20%, 56%)", "hsl(orangish(20%) red, 20%, 56%)"],
+            "hsla()": ["hsla(240 100% 50% / 0.05)", "hsla(240 100% 50% / 5%)", "hsla(240deg 100% 50% / 5%)", "hsla(240deg, 100%, 50%, 0.4)"],
             "gray()": ["gray(0)", "gray(16)", "gray(255, 50%)", "gray(255, .2)"],
             "hwb()": ["hwb(90, 0%, 0%, 0.5)", "hwb(190, 50%, 0%)", "hwb(190, 50%, 10%, .2)", "hwb(120deg, 44%, 50%)"],
             "color()": ["color(yellow blend(blue 50%))", "color(red)", "color(red tint(50%))", "color(hsla(125, 50%, 50%, .4) hue(200))", "color(yellow blend(blue 50% hsl))", ],
@@ -1010,7 +1181,19 @@ window.Specs = {
             "toggle()": "toggle(1px, 2px)"
         },
         "properties": {
-            "content": ["attr(data-foo)", "attr(class)", "attr(width px, auto)"]
+            "content": [
+              "attr(data-foo)", "attr(class)", "attr(width px, auto)",
+              "linear-gradient(45deg, white, black)",
+              "radial-gradient(circle, white, black)",
+              "repeating-linear-gradient(white, black)",
+              "repeating-radial-gradient(white, black)",
+              "image-set(url(foo.png) 1x, url(foo-2x.png) 2x)",
+              "image-set(url(foo.png) 1.5x)",
+              "cross-fade(url(foo.png), url(bar.png), 20%)",
+              "cross-fade(url(foo.png), url(bar.png), 100%)",
+              "conic-gradient(#f06, gold)",
+              "repeating-conic-gradient(gold, #f06 20deg)",
+            ]
         }
     },
 
@@ -1071,11 +1254,25 @@ window.Specs = {
                 "repeat(17, minmax(20px, auto))",
                 "repeat(18, minmax(auto, 20px))",
                 "repeat(17, minmax(20px, 1fr))",
-                "repeat(17, minmax(1fr, 20px))",
                 "repeat(18, minmax(20px, min-content))",
                 "repeat(18, minmax(min-content, 20px))",
                 "repeat(17, minmax(18%, auto))",
                 "repeat(17, minmax(auto, 18%))",
+
+                // multiple tracks on repeat()
+                "repeat(5, 100px 50px)",
+                "repeat(5, auto 1fr 18%)",
+                "repeat(5, 100% auto 1fr 10em)",
+
+                // fit-content( [ <length> | <percentage> ]
+                "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)",
+                "repeat(5, fit-content(0))",
+                "repeat(12, fit-content(58px))",
+                "repeat(1, fit-content(39%)",
+
                 "100px 1fr 100px 1fr 100px",
                 "minmax(36px, 1fr)",
                 "minmax(0, 100%)",
@@ -1097,6 +1294,7 @@ window.Specs = {
                 "minmax(calc(4em - 5px), 1fr)",
                 "calc(4em - 5px) 1fr minmax(calc(4em - 5px), 1fr)",
                 "repeat(2, calc(4em - 5px) 1fr)",
+                // 介绍 auto-repeat 文章 https://blogs.igalia.com/svillar/2016/05/10/automatizing-the-grid/
                 // Add https://lists.w3.org/Archives/Public/www-style/2015Aug/0342.html
                 // demo: http://gridbyexample.com/examples/code/example20.html
                 // Blink test: https://codereview.chromium.org/1582793002/patch/40001/50002
@@ -1106,9 +1304,13 @@ window.Specs = {
                 "repeat(auto-fit, 159px)",
                 "repeat(auto-fill, 59%)",
                 "repeat(auto-fit, 59%)",
-                // "repeat(auto-fill, min-content)",
+                // Automatic repetitions (auto-fill or auto-fit) cannot be combined with intrinsic or flexible sizes.
+                // "repeat(auto-fill, 1fr)",
+                // "repeat(auto-fit, auto)",
+                // "repeat(auto-fit, min-content)",
                 // "repeat(auto-fit, max-content)",
-                "repeat(auto-fit, minmax(auto, auto))",
+                // "repeat(auto-fit, minmax(auto, auto))",
+
                 "repeat(auto-fit, [] minmax(19px, min-content))",
                 "repeat(auto-fit, [a] minmax(15.8%, auto) [])",
                 "repeat(auto-fill, minmax(26px, 100%))",
@@ -1119,14 +1321,11 @@ window.Specs = {
                 // https://bugzilla.mozilla.org/show_bug.cgi?id=1251999
                 "repeat(auto-fill, minmax(1%, auto))",
                 "repeat(auto-fill, minmax(1em, min-content))",
-                "repeat(auto-fill, minmax(1fr, 1em))",
                 "repeat(auto-fill, minmax(max-content, 1mm))",
-                "repeat(auto-fit, 1fr)",
 
                 "repeat(auto-fill, minmax(20px, auto))",
                 "repeat(auto-fill, minmax(auto, 20px))",
                 "repeat(auto-fill, minmax(20px, 1fr))",
-                "repeat(auto-fill, minmax(1fr, 20px))",
                 "repeat(auto-fill, minmax(20px, min-content))",
                 "repeat(auto-fill, minmax(min-content, 20px))",
                 "repeat(auto-fill, minmax(18%, auto))",
@@ -1135,12 +1334,19 @@ window.Specs = {
                 "repeat(auto-fill, [a] 20px [b]) [c]",
                 "repeat(auto-fit, [a] 20px [b]) [c] 30px [d]",
                 "repeat(auto-fit,[] 1%)",
+
+                //  multiple tracks on auto repeat()
+                "repeat(auto-fill, 100px 50px)",
+                "repeat(auto-fill, auto 1fr 18%)",
+                "repeat(auto-fill, 100% auto 1fr 10em)",
+                "repeat(auto-fit, 100px 50px)",
+                "repeat(auto-fit, auto 1fr 18%)",
+                "repeat(auto-fit, 100% auto 1fr 10em)",
+
                 "subgrid",
                 "subgrid [first] [second] [third] [fourth] [fifth]",
                 "subgrid [] [foo bar]",
                 "subgrid repeat(1, [])",
-                "subgrid repeat(2, (40px))",
-                "subgrid repeat(2, foo)",
                 "subgrid Repeat(4, [a] [b c] [] [d])",
                 "subgrid repeat(auto-fill, [])",
                 "subgrid [x] repeat( Auto-fill, [a b c]) []",
@@ -1220,11 +1426,38 @@ window.Specs = {
                 "10px / [head] 'a' 15px [tail]",
                 "auto 1fr auto / [header-top] 'a a a' [header-bottom] [main-top] 'b b b' 1fr [main-bottom]",
                 "auto 1fr auto / [header-top] 'a a a' 1fr [header-bottom] [main-top] 'b b b' 1fr [main-bottom]",
-                "subgrid"
+                "subgrid",
+                // https://bugs.chromium.org/p/chromium/issues/detail?id=614314
+                // The following declaration should be invalid:
+                "'a b' / repeat(2, 100px)"
             ],
 
-            "grid-auto-columns": ["auto", "1fr", "100px", "min-content", "max-content", "minmax(min-content, 1fr)"],
-            "grid-auto-rows": ["auto", "1fr", "100px", "min-content", "max-content", "minmax(min-content, 1fr)"],
+            "grid-auto-columns": [
+                "auto", "1fr", "100px", "min-content", "max-content", "minmax(min-content, 1fr)",
+                // <track-size>+
+                // https://drafts.csswg.org/css-grid/#auto-tracks
+                // Moz bug https://bugzilla.mozilla.org/show_bug.cgi?id=1339672
+                "auto 1fr", "1fr 50px",
+                "min-content max-content", "max-content max-content",
+                "minmax(min-content, 1fr) max-content",
+                "minmax(min-content, 1fr) 100px",
+                "68% 100px 1fr auto max-content",
+                "fit-content(90px)", "fit-content(68%)",
+                "fit-content(90px) fit-content(68%)",
+                "fit-content(90px) fit-content(68%) 100px"
+            ],
+            "grid-auto-rows": ["auto", "1fr", "100px", "min-content", "max-content", "minmax(min-content, 1fr)",
+                // <track-size>+
+                // https://drafts.csswg.org/css-grid/#auto-tracks
+                "auto 1fr", "1fr 50px",
+                "min-content max-content", "max-content max-content",
+                "minmax(min-content, 1fr) max-content",
+                "minmax(min-content, 1fr) 100px",
+                "68% 100px 1fr auto max-content",
+                "fit-content(90px)", "fit-content(68%)",
+                "fit-content(90px) fit-content(68%)",
+                "fit-content(90px) fit-content(68%) 100px"
+            ],
             "grid-auto-flow": ["row", "column", "dense", "row dense", "dense row", "dense column"], // Remove grid-auto-flow stack value
             /*
              Removed
@@ -1255,23 +1488,26 @@ window.Specs = {
             "grid-row-gap": ["0", "16px", "3.6em", "31rem", "28vw", "16vmax","calc(239px - 3em)"], //Rename row-gap to grid-row-gap
             "grid-column-gap": ["0", "16px", "3.6em", "31rem", "28vw", "16vmax","calc(239px - 3em)"],
             // normal 可能会被删除 https://lists.w3.org/Archives/Public/www-style/2015Nov/0072.html
-            "grid-gap": ["normal", "0", "16px 3.6em", "31rem 28vw", "16vmax calc(239px - 3em)", "16px", "3.6em", "31rem", "28vw", "16vmax","calc(239px - 3em)"]
+            "grid-gap": ["normal", "0", "16px 3.6em", "31rem 28vw", "16vmax calc(239px - 3em)", "16px", "3.6em", "31rem", "28vw", "16vmax","calc(239px - 3em)", "18%", "100%", "18% 81%", "18% 21px", "calc(69% - 3em)"]
         }
     },
-    // Firefox https://bugzilla.mozilla.org/show_bug.cgi?id=1105570 https://bugzilla.mozilla.org/show_bug.cgi?id=1207698
+    // Firefox https://bugzilla.mozilla.org/show_bug.cgi?id=1105570
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1207698
     // WebKit https://bugs.webkit.org/show_bug.cgi?id=91512
 
     "css3-align": {
         "title": "Box Alignment",
         "properties": {
-            "justify-self": ["auto", "normal", "stretch", "baseline", "last-baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
-            "align-self": ["auto", "normal", "stretch", "baseline", "last-baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
-            "justify-items": ["auto", "normal", "stretch", "baseline", "last-baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "legacy  left", "legacy right", "legacy center"],
+            // Change "baseline|last-baseline" to "[ first | last ]? baseline"
+            // https://bugzilla.mozilla.org/show_bug.cgi?id=1313254
+            "justify-self": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
+            "align-self": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
+            "justify-items": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "legacy left", "legacy right", "legacy center"],
             // No auto value
             // adding 'normal' keyword, dropping 'auto'
             // https://bugzilla.mozilla.org/show_bug.cgi?id=1233106
-            "align-items": ["auto", "stretch", "baseline", "last-baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe"],
-            "justify-content": ["auto", "normal", "baseline", "last-baseline", "space-between", "space-around", "space-evenly", "stretch", "center", "start", "end", "flex-start", "flex-end", "left", "right", "center safe", "start safe", "end safe", "flex-start safe", "flex-end safe", "left safe", "right safe",
+            "align-items": ["normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe"],
+            "justify-content": ["normal", "baseline", "first baseline", "last baseline", "space-between", "space-around", "space-evenly", "stretch", "center", "start", "end", "flex-start", "flex-end", "left", "right", "center safe", "start safe", "end safe", "flex-start safe", "flex-end safe", "left safe", "right safe",
                 // Rename 'true' to 'unsafe'
                 // Chrome bug: crbug.com/565883
                 // WebKit bug: http://trac.webkit.org/changeset/194104
@@ -1279,12 +1515,32 @@ window.Specs = {
                 "center unsafe", "start unsafe", "end unsafe", "flex-start unsafe", "flex-end unsafe", "left unsafe", "right unsafe", "space-around start unsafe",
                 "space-between center", "space-around start", "space-evenly end", "stretch flex-start", "space-between flex-end", "space-between left", "space-between right", "space-between center safe"
                 ],
-            "align-content": ["auto", "normal", "baseline", "last-baseline", "space-between", "space-around", "space-evenly", "stretch", "center", "start", "end", "flex-start", "flex-end", "left", "right", "center safe", "start safe", "end safe", "flex-start safe", "flex-end safe", "left safe", "right safe",
+            "align-content": ["normal", "baseline", "first baseline", "last baseline", "space-between", "space-around", "space-evenly", "stretch", "center", "start", "end", "flex-start", "flex-end", "left", "right", "center safe", "start safe", "end safe", "flex-start safe", "flex-end safe", "left safe", "right safe",
                 // Rename 'true' to 'unsafe'
                 // "center true", "start true", "end true", "flex-start true", "flex-end true", "left true", "right true", "space-around start true",
                 "center unsafe", "start unsafe", "end unsafe", "flex-start unsafe", "flex-end unsafe", "left unsafe", "right unsafe", "space-around start unsafe",
                 "space-between center", "space-around start", "space-evenly end", "stretch flex-start", "space-between flex-end", "space-between left", "space-between right", "space-between center safe"
                 ],
+
+            // 缩写
+            // [align-content][justify-content]?
+            // 不包括 <overflow-position>
+            "place-content": ["normal", "baseline", "first baseline", "last baseline", "space-between", "space-around", "space-evenly", "stretch", "center", "start", "end", "flex-start", "flex-end", "left", "right",
+                "normal start", "end baseline", "end end", "center center",
+                "space-between flex-end", "first baseline start", "last baseline start"
+                ],
+            // 不包括 <overflow-position>
+            // [align-items][justify-items]?
+            // <x> [ auto | <x> ]?
+            // <x> = [ normal | stretch | <baseline-position> | <self-position> ]
+            "place-items": ["normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center",
+            "normal center", "end baseline", "end auto", "center auto", "first baseline auto","start last baseline", "left flex-end", "last baseline start", "stretch"
+            ],
+            // 不包括 <overflow-position>
+            // [align-self][justify-self]?
+            "place-self": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center",
+                "normal start", "end first baseline", "end auto", "start baseline", "left self-end", "last baseline start"
+            ]
         }
     },
 
@@ -1451,23 +1707,70 @@ window.Specs = {
     "css3-sizing": {
         "title": "Intrinsic & Extrinsic Sizing",
         "properties": {
-            "width":        ["fill", "fill-available", "-moz-available", "min-content", "max-content", "fit-content",
+            // fill renamed to stretch
+            // https://drafts.csswg.org/css-sizing-3/#changes
+            "width":        ["stretch", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)",
               // 私有：https://code.google.com/p/chromium/issues/detail?id=475104
               "intrinsic", "min-intrinsic"
             ],
-            "height":       ["fill", "fill-available", "-moz-available", "min-content", "max-content", "fit-content"],
-            "min-width":    ["fill", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "contain-floats"],
-            "min-height":   ["fill", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "contain-floats"],
-            "max-width":    ["fill", "fill-available", "-moz-available", "min-content", "max-content", "fit-content"],
-            "max-height":   ["fill", "fill-available", "-moz-available", "min-content", "max-content", "fit-content"],
-            "column-width": ["fill", "fill-available", "-moz-available", "min-content", "max-content", "fit-content"]
+            "height":       ["stretch", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)"],
+            "min-width":    ["stretch", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)", "contain-floats"],
+            "min-height":   ["stretch", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)", "contain-floats"],
+            "max-width":    ["stretch", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)"],
+            "max-height":   ["stretch", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)"],
+            "column-width": ["stretch", "fill-available", "-moz-available", "min-content", "max-content", "fit-content", "fit-content(0)",
+                "fit-content(58px)",
+                "fit-content(39%)",
+                "fit-content(100%)"]
         }
     },
 
     "css-shapes": {
         "title": "Shapes",
         "properties": {
-            "shape-outside": ["none", "inset(10% round 10% 40% 10% 40%)", "inset(10% round 10% 40% / 10% 40%)", "ellipse(at top 50% left 20%)", "circle(at right 5% top)", "polygon(100% 0, 100% 100%, 0 100%)", "margin-box", "border-box", "padding-box", "content-box", "margin-box", "ellipse(at top 50% left 20%) margin-box", "circle(at right 5% top) margin-box", "polygon(100% 0, 100% 100%, 0 100%) margin-box", "url(image.png)"],
+            "shape-outside": [
+                "none",
+                "inset(10% round 10% 40% 10% 40%)",
+                "inset(10% round 10% 40% / 10% 40%)",
+                "ellipse(at top 50% left 20%)",
+                "circle(at right 5% top)",
+                "polygon(100% 0, 100% 100%, 0 100%)",
+                "margin-box",
+                "border-box",
+                "padding-box",
+                "content-box",
+                "margin-box",
+                "ellipse(at top 50% left 20%) margin-box",
+                "circle(at right 5% top) margin-box",
+                "polygon(100% 0, 100% 100%, 0 100%) margin-box",
+                "linear-gradient(white, black)",
+                "radial-gradient(white, black)",
+                "repeating-linear-gradient(white, black)",
+                "repeating-radial-gradient(white, black)",
+                // https://drafts.csswg.org/css-shapes/#shapes-from-image
+                "url(image.png)",
+                "url(#svg)",
+                "url(foo.svg#svg)",
+                "attr(src url)"
+            ],
             "shape-image-threshold": ["0", "1", "0.0", "0.1"],
             "shape-margin": ["0", "10px", "50%"]
         }
@@ -1476,7 +1779,21 @@ window.Specs = {
     "css-shapes-2": {
         "title": "Shapes 2",
         "properties": {
-            "shape-inside": ["auto", "outside-shape", "inset(10% round 10% 40% 10% 40%)", "inset(10% round 10% 40% / 10% 40%)", "ellipse(at top 50% left 20%)", "circle(at right 5% top)", "polygon(100% 0, 100% 100%, 0 100%)", "ellipse(at top 50% left 20%) shape-box", "circle(at right 5% top) shape-box", "polygon(100% 0, 100% 100%, 0 100%) shape-box", "url(image.png)", "path(\"M 60 40 l 20 0 l 0 60 l 20 0 l 0 -20 l -40 0 l 0 -20 l 80 0 l 0 60 l -60 0 l 0 -80 Z\")"],
+            "shape-inside": [
+                "auto",
+                "outside-shape",
+                "inset(10% round 10% 40% 10% 40%)",
+                "inset(10% round 10% 40% / 10% 40%)",
+                "ellipse(at top 50% left 20%)",
+                "circle(at right 5% top)",
+                "polygon(100% 0, 100% 100%, 0 100%)",
+                "ellipse(at top 50% left 20%) shape-box",
+                "circle(at right 5% top) shape-box",
+                "polygon(100% 0, 100% 100%, 0 100%) shape-box",
+                "url(image.png)",
+                "path(\"M 60 40 l 20 0 l 0 60 l 20 0 l 0 -20 l -40 0 l 0 -20 l 80 0 l 0 60 l -60 0 l 0 -80 Z\")",
+                "display"
+            ],
             "shape-padding": ["0", "10px"],
             "clip-path": [
             "path(\"M 60 40 l 20 0 l 0 60 l 20 0 l 0 -20 l -40 0 l 0 -20 l 80 0 l 0 60 l -60 0 l 0 -80 Z\")",
@@ -1494,13 +1811,24 @@ window.Specs = {
             "clip-path": [
             "none",
             "url('#clip')",
+            "inset(16% 35px 2em 3.5vw)",
+            "inset(calc(100% - 210px) 19px)",
+            "inset(10% round 10% 40% / 10% 40%)",
             // basic shapes for clip-path
             // Firefox used flag: layout.css.clip-path-shapes.enabled
             // https://bugzilla.mozilla.org/show_bug.cgi?id=1110460
-            "inset(16% 35px 2em 3.5vw)", "inset(calc(100% - 210px) 19px)", "inset(10% round 10% 40% / 10% 40%)", "circle()", "circle(38.6% at 56% 51%)", "circle(closest-side)", "circle(farthest-side)", "ellipse()", "ellipse(26% 45% at 58% 52%)", "ellipse(closest-side farthest-side)", "ellipse(farthest-side farthest-side)", "polygon(50% 0%, 0% 100%, 100% 100%)", "polygon(5em 13px, 76% 280px, 0 230px)", "polygon(nonzero, 5em 13px, 76% 280px, 0 230px)", "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)", "border-box", "padding-box", "content-box", "margin-box", "fill-box", "stroke-box", "view-box", "circle() border-box"],
+            "circle()", "circle(38.6% at 56% 51%)", "circle(closest-side)", "circle(farthest-side)", "ellipse()", "ellipse(26% 45% at 58% 52%)", "ellipse(closest-side farthest-side)", "ellipse(farthest-side farthest-side)", "polygon(50% 0%, 0% 100%, 100% 100%)", "polygon(5em 13px, 76% 280px, 0 230px)", "polygon(nonzero, 5em 13px, 76% 280px, 0 230px)", "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)", "border-box", "padding-box", "content-box", "margin-box", "fill-box", "stroke-box", "view-box", "circle() border-box"],
             "clip-rule": ["nonzero", "evenodd"],
             "mask-type": ["alpha", "luminance"],
-            "mask-image": ["none", "linear-gradient(black 0%, transparent 100%)", "url(image.png)", "url(image1.png), url(image2.jpg)", "linear-gradient(black 0%, transparent 100%), url(image.png)"],
+            "mask-image": [
+                "none",
+                "url(image.png)",
+                "url(foo.svg#svg)",
+                "url(#svg)",
+                "url(image1.png), url(image2.jpg)",
+                "linear-gradient(black 0%, transparent 100%)",
+                "linear-gradient(black 0%, transparent 100%), url(image.png)"
+                ],
             "mask-repeat": ["repeat-x", "repeat-y"].concat(["repeat", "space", "round", "no-repeat"].times(1, 2)),
             "mask-position": ["center", "left 50%", "bottom 10px right 20px", "bottom 10px right", "top right 10px"],
             "mask-position-x": ["center", "left", "10px"],
@@ -1627,7 +1955,23 @@ window.Specs = {
     "pointerevents": {
         "title": "Pointer Events",
         "properties": {
-            "touch-action": ["auto", "none", "pan-x", "pan-y", "pan-x pan-y", "manipulation"]
+            "touch-action": [
+                              "auto",
+                              "none",
+                              "pan-x",
+                              "pan-left",
+                              "pan-right",
+                              "pan-y",
+                              "pan-up",
+                              "pan-down",
+                              "pan-x pan-y",
+                              "pan-y pan-left",
+                              "pan-left pan-up",
+                              "pan-left pan-y",
+                              "manipulation",
+                              // https://bugs.chromium.org/p/chromium/issues/detail?id=626086
+                              "pinch-zoom"
+                            ]
         }
     },
 
@@ -1764,6 +2108,16 @@ window.Specs = {
     // 参考 css-shapes 语法
     //https://code.google.com/p/chromium/issues/detail?id=416731
     //https://code.google.com/p/chromium/issues/detail?id=464242
+
+    //https://bugs.chromium.org/p/chromium/issues/detail?id=637543
+    /*
+        motion-offset -> offset-distance
+        motion-path -> offset-path
+        motion-rotation -> offset-rotation
+        motion -> offset
+    */
+    // Rename offset-rotation to be offset-rotate
+    // https://github.com/w3c/fxtf-drafts/issues/70
     "motion-1": {
         "title": "Motion Path Module Level 1",
         "group": "fxtf",
@@ -1772,6 +2126,40 @@ window.Specs = {
             "motion-offset": ["0", "123px", "123vw", "18rem", "-200px", "30%", "unset"],
             "motion-rotation": ["auto", "0", "reverse", "-45deg", "auto 180deg", "reverse 45deg", "2turn reverse"],
             "motion": ["none 50% auto 400grad", "path('M 20 20 H 80 V 30') 0rad 100px", "10px 90deg reverse none", "path('M 1 2 V 3') 4px 5deg", "none 10px reverse 90deg", "url(../images/foo.svg) 0rad 100px"],
+        }
+    },
+
+    "motion-2": {
+        "title": "Motion Path Module Level 2",
+        "group": "fxtf",
+        "properties": {
+            "offset-path": [
+                "none",
+                "path('M 1 2 V 3')",
+                "url(../images/foo.svg)",
+                "url(#myRect)",
+                "polygon(0% 50%, 50% 100%, 0 100%)",
+                "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)",
+                "fill-box", "stroke-box", "view-box",
+                // <angle> and <size>
+                // https://bugs.chromium.org/p/chromium/issues/detail?id=641245
+                "ray(45deg)", "ray(180deg)", "ray(0deg)", "ray(-28deg)",
+                "ray(39deg) closest-side", "ray(39deg) farthest-side", "ray(39deg) closest-corner", "ray(39deg) arthest-corner",
+                 "ray(45deg contain)"
+            ],
+            "offset-distance": ["0", "123px", "123vw", "18rem", "-200px", "30%", "unset"],
+            "offset-rotation": ["auto", "0", "reverse", "-45deg", "auto 180deg", "reverse 45deg", "2turn reverse"],
+            // New
+            "offset-position": [
+                "auto", "right top", "right bottom", "left bottom", "center", "20% 92%",
+                "bottom 10px right 20px", "bottom 10px right", "top right 10px"
+            ],
+            // New
+            "offset-anchor": [
+                "auto", "right top", "right bottom", "left bottom", "center", "20% 92%",
+                "bottom 10px right 20px", "bottom 10px right", "top right 10px"
+            ],
+            "offset": ["none 50% auto 400grad", "path('M 20 20 H 80 V 30') 0rad 100px", "10px 90deg reverse none", "path('M 1 2 V 3') 4px 5deg", "none 10px reverse 90deg", "url(../images/foo.svg) 0rad 100px"],
         }
     },
 
@@ -1882,6 +2270,8 @@ window.Specs = {
             "::before": [".foo::before"],
             "::after": [".foo::after"],
             "::selection": [".foo::selection"],
+            // Add in https://github.com/w3c/csswg-drafts/commit/cd0d328d6210e078c01d05f5afe1348c6cb58af0
+            "::inactive-selection": [".foo::inactive-selection"],
             "::spelling-error": [".foo::spelling-error"],
             "::grammar-error": [".foo::grammar-error"],
             "::marker": ["li::marker"],
@@ -1967,5 +2357,17 @@ window.Specs = {
         "Media queries": {
             "display-mode": ["(display-mode: browser)", "(display-mode: fullscreen)", "(display-mode: standalone)", "(display-mode: minimal-ui)", "all and (display-mode: browser)"],
         }
+    },
+
+    // https://drafts.csswg.org/css-rhythm/
+    "css-rhythm": {
+        "title": "CSS Rhythmic Sizing",
+        "properties": {
+            "line-height-step": ["none", "0", "20px", "18pt", "8em", "2vw", "3vh"],
+            "block-step-size": ["none", "0", "20px", "18pt", "8em", "2vw", "3vh"],
+            "block-step-insert": ["margin", "padding"],
+            "block-step-align": ["auto", "center", "start", "end"],
+            "block-step-round": ["up", "down", "nearest"],
+        },
     },
 };

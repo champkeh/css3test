@@ -733,13 +733,20 @@ window.Specs = {
                 "none",
                 "translate(5px)", "translate(5px, 10px)", "translateY(5px)", "translateX(5px)", "translateY(5%)", "translateX(5%)",
                 "scale(2)", "scale(2, -1)", "scaleX(2)", "scaleY(2.5)",
-                "rotate(45deg)",
-                "skew(45deg)", "skew(45deg, 15deg)", "skewX(45deg)", "skewY(45deg)",
+                "rotate(45deg)", "rotate(0)",
+                "rotate3d(1, 2, 3, 0)",
+                "rotate3d(1, 1, 1, 45deg)",
+                "rotateX(-45deg)",
+                "rotateX(0)",
+                "rotateY(-45deg)",
+                "rotateY(0)",
+                "rotateZ(-45deg)",
+                "rotateZ(0)",
+                "skew(45deg)", "skew(0)", "skew(45deg, 15deg)", "skew(0, 0)", "skewX(45deg)", "skewX(0)", "skewY(45deg)", "skewY(0)",
                 "matrix(1,-.2,0,1,0,0)", "matrix(1,-.2,0,1,10,10)",
                 "translate(50px, -24px) rotate(180deg) scale(.5) skew(0, 22.5deg)",
                 "translate3d(0, 0, 5px)", "translateZ(5px)",
                 "scale3d(1, 0, -1)", "scaleZ(1.5)",
-                "rotate3d(1, 1, 1, 45deg)", "rotateX(-45deg)", "rotateY(-45deg)", "rotateZ(-45deg)",
                 "matrix3d(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)", "matrix3d(0,0,0,0,0,0,0,0,0,0,1,0,10,10,0,1)",
                 "translate3d(50px, -24px, 5px) rotate3d(1, 2, 3, 180deg) scale3d(-1, 0, .5)",
                 "none", "perspective(600px)"
@@ -757,7 +764,7 @@ window.Specs = {
         "title": "Transforms 2",
         "properties": {
             "translate": ["0", "10px", "-30px -90px", "6% 8em"],
-            "rotate": ["0deg", "18deg", "18deg 1 3 2"],
+            "rotate": ["0deg", "0", "18deg", "18deg 1 3 2"],
             "scale": ["0", "1.8", "2 3", "2 3 1"],
         }
     },
@@ -1929,6 +1936,7 @@ window.Specs = {
                 "filter(url(image.jpg), url('blur.svg') blur(2px))",
                 "filter(url(image.svg), blur(2px) invert(80%))",
                 "filter(radial-gradient(circle, #9ef, #0000af 100%), hue-rotate(90deg))",
+                "filter(radial-gradient(circle, #9ef, #0000af 100%), hue-rotate(0))",
                 "filter(radial-gradient(circle, #9ef, #0000af 100%), blur(2px) invert(80%))",
                 "filter(url(image.svg), contrast(0.75) blur(3px) hue-rotate(45deg))",
                 //cross-fade must be add -webkit-
@@ -1938,7 +1946,7 @@ window.Specs = {
             ]
         },
         "properties": {
-            "filter": ["none", "url(#id)", "url(image.svg#id)", "blur(5px)", "brightness(0.5)", "contrast(150%)", "drop-shadow(15px 15px 15px black)", "grayscale(50%)", "hue-rotate(50deg)", "invert(50%)", "opacity(50%)", "sepia(50%)", "saturate(150%)", "grayscale(100%) sepia(100%)"],
+            "filter": ["none", "url(#id)", "url(image.svg#id)", "blur(5px)", "brightness(0.5)", "contrast(150%)", "drop-shadow(15px 15px 15px black)", "grayscale(50%)", "hue-rotate(50deg)", "hue-rotate(0)", "invert(50%)", "opacity(50%)", "sepia(50%)", "saturate(150%)", "grayscale(100%) sepia(100%)"],
         }
     },
 

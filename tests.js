@@ -1279,6 +1279,7 @@ window.Specs = {
                 "repeat(5, fit-content(0))",
                 "repeat(12, fit-content(58px))",
                 "repeat(1, fit-content(39%)",
+                "fit-content(calc(1px - 99%))",
 
                 "100px 1fr 100px 1fr 100px",
                 "minmax(36px, 1fr)",
@@ -1509,7 +1510,9 @@ window.Specs = {
             // https://bugzilla.mozilla.org/show_bug.cgi?id=1313254
             "justify-self": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
             "align-self": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "left safe", "right safe"],
-            "justify-items": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "legacy left", "legacy right", "legacy center", "legacy left", "legacy right", "legacy center"],
+            // Rename `auto` to `legacy` for `justify-items`
+            // https://github.com/w3c/csswg-drafts/issues/1318
+            "justify-items": ["auto", "normal", "stretch", "baseline", "first baseline", "last baseline", "center", "start", "end", "self-start", "self-end", "flex-start", "flex-end", "left", "right", "center", "center safe", "start safe", "end safe", "self-start safe", "self-end safe", "flex-start safe", "flex-end safe", "legacy", "legacy left", "legacy right", "legacy center"],
             // No auto value
             // adding 'normal' keyword, dropping 'auto'
             // https://bugzilla.mozilla.org/show_bug.cgi?id=1233106
@@ -2375,7 +2378,19 @@ window.Specs = {
             "block-step-size": ["none", "0", "20px", "18pt", "8em", "2vw", "3vh"],
             "block-step-insert": ["margin", "padding"],
             "block-step-align": ["auto", "center", "start", "end"],
-            "block-step-round": ["up", "down", "nearest"],
+            "block-step-round": ["up", "down", "nearest"]
         },
     },
+
+    // https://wicg.github.io/scroll-boundary-behavior/
+    "scroll-boundary-behavior": {
+        "title": "CSS Scroll Boundary Behavior",
+        "properties": {
+            "scroll-boundary-behavior": ["contain", "none", "auto"],
+            "scroll-boundary-behavior": ["contain", "none", "auto"],
+            "scroll-boundary-behavior": ["contain", "none", "auto"],
+            // https://msdn.microsoft.com/zh-cn/library/windows/apps/hh466007.aspx
+            "-ms-scroll-chaining": ["chained", "none"],
+        },
+    }
 };

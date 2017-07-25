@@ -937,7 +937,9 @@ window.Specs = {
                 "ruby", "simplified full-width ruby"
             ],
             "font-variant": ["none", "small-caps", "common-ligatures", "common-ligatures small-caps", "stylistic(user-defined-ident) all-petite-caps sub lining-nums contextual ruby"],
-            "font-feature-settings": ["normal", "'c2sc'", "'smcp' on", "'liga' off", "'smcp', 'swsh' 2"],
+            // WebKit Support calc() in font-variation-settings and font-feature-settings
+            // https://trac.webkit.org/changeset/217267/webkit
+            "font-feature-settings": ["normal", "'c2sc'", "'smcp' on", "'liga' off", "'smcp', 'swsh' 2", "'zero' 1", "'zero' calc(3 - 2)"],
             "font-language-override": ["normal", "'SRB'"],
             "unicode-range": ["U+416", "U+0-7F", "U+A5, U+4E00-9FFF", "U+30??", "U+0025-00FF, U+4??"]
         },
@@ -967,7 +969,9 @@ window.Specs = {
             "min-font-size": ["3px", "3.5em", "10%", "100%"],
             "max-font-size": ["3px", "3.5em", "10%", "100%"],
             "font-optical-sizing": ["auto", "none"],
-            "font-variation-settings": ["normal", "'wght' 2, 'wght' 3", "'wdth' 0.7", "'wdth' 3"]
+            "font-variation-settings": ["normal", "'wght' 2, 'wght' 3", "'wdth' 0.7", "'wdth' 3",
+            "'desc' 0, 'hght' 750, 'trac' 0, 'wdth' 400",
+            "'desc' 0, 'hght' 750, 'trac' 0, 'wdth' calc(200 + 200)"]
         }
     },
 
@@ -2124,11 +2128,9 @@ window.Specs = {
     /*
         motion-offset -> offset-distance
         motion-path -> offset-path
-        motion-rotation -> offset-rotation
+        motion-rotation -> offset-rotation -> offset-rotate
         motion -> offset
     */
-    // Rename offset-rotation to be offset-rotate
-    // https://github.com/w3c/fxtf-drafts/issues/70
     "motion-1": {
         "title": "Motion Path Module Level 1",
         "group": "fxtf",
@@ -2147,28 +2149,39 @@ window.Specs = {
             "offset-path": [
                 "none",
                 "path('M 1 2 V 3')",
+                "path('m 0 0 h 200 v 150')",
+                "path('')",
                 "url(../images/foo.svg)",
                 "url(#myRect)",
                 "polygon(0% 50%, 50% 100%, 0 100%)",
                 "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)",
+                "margin-box", "border-box", "padding-box", "content-box",
                 "fill-box", "stroke-box", "view-box",
                 // <angle> and <size>
                 // https://bugs.chromium.org/p/chromium/issues/detail?id=641245
-                "ray(45deg)", "ray(180deg)", "ray(0deg)", "ray(-28deg)",
-                "ray(39deg) closest-side", "ray(39deg) farthest-side", "ray(39deg) closest-corner", "ray(39deg) arthest-corner",
-                 "ray(45deg contain)"
+
+                // <size> argument of ray() is required
+                // https://github.com/w3c/fxtf-drafts/issues/73
+                // "ray(45deg)", "ray(180deg)", "ray(0deg)", "ray(-28deg)",
+                "ray(39deg closest-side)", "ray(39deg farthest-side)", "ray(39deg closest-corner)", "ray(39deg farthest-corner)",
+                "ray(39deg sides)", "ray(45deg contain)",
+                 "ray(0.6turn sides contain)",
+                 "ray(400grad farthest-corner contain)",
+                 "ray(calc(180deg - 45deg) farthest-side)",
             ],
             "offset-distance": ["0", "123px", "123vw", "18rem", "-200px", "30%", "unset"],
-            "offset-rotation": ["auto", "0", "reverse", "-45deg", "auto 180deg", "reverse 45deg", "2turn reverse"],
+            // Rename offset-rotation to be offset-rotate
+            // https://github.com/w3c/fxtf-drafts/issues/70
+            "offset-rotate": ["auto", "0deg", "reverse", "-45deg", "auto 180deg", "reverse 45deg", "2turn reverse"],
             // New
             "offset-position": [
                 "auto", "right top", "right bottom", "left bottom", "center", "20% 92%",
-                "bottom 10px right 20px", "bottom 10px right", "top right 10px"
+                "bottom 10px right 20px"
             ],
             // New
             "offset-anchor": [
                 "auto", "right top", "right bottom", "left bottom", "center", "20% 92%",
-                "bottom 10px right 20px", "bottom 10px right", "top right 10px"
+                "bottom 10px right 20px"
             ],
             "offset": ["none 50% auto 400grad", "path('M 20 20 H 80 V 30') 0rad 100px", "10px 90deg reverse none", "path('M 1 2 V 3') 4px 5deg", "none 10px reverse 90deg", "url(../images/foo.svg) 0rad 100px"],
         }

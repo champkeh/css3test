@@ -483,7 +483,18 @@ window.Specs = {
             // https://codereview.chromium.org/1523843004/
             // "::content": "::content",
             "::slotted": "::slotted",
-            "::slotted()": ["::slotted(.foo)", "::slotted(*)"],
+            "::slotted()": [
+              "::slotted(*)",
+              "::slotted(.foo)",
+              "::slotted(div)",
+              "::slotted([attr]:hover)",
+              "::slotted(:not(.a))",
+
+              // Support ::before and ::after pseudo elements after ::slotted.
+              // https://chromium-review.googlesource.com/c/chromium/src/+/616042
+              "::slotted(*)::before",
+              "::slotted(*)::after",
+            ],
             "::region": "#region-1::region p",
             /*
             For those who are following this issue about /deep/ and '>>>' combinator,
@@ -637,6 +648,7 @@ window.Specs = {
                 "url(foo.png) 2 2, auto", "url(example.svg#linkcursor), url(hyper.cur), url(hyper.png) 2 3, pointer", "default", "none", "context-menu", "cell", "vertical-text", "alias", "copy", "no-drop", "not-allowed",
                 "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "col-resize", "row-resize", "all-scroll", "zoom-in", "zoom-out"
             ],
+            // WebKit: https://trac.webkit.org/changeset/220706/webkit
             "caret-color": ["auto", "#00aacc", "rgba(65, 20, 109, .6)", "transparent", "currentColor"], // New
             "nav-index": ["auto", "1", "10"],
             "nav-up": ["auto", "#foo", "#foo current", "#foo root"],
@@ -764,7 +776,7 @@ window.Specs = {
         "title": "Transforms 2",
         "properties": {
             "translate": ["0", "10px", "-30px -90px", "6% 8em"],
-            "rotate": ["0deg", "0", "18deg", "18deg 1 3 2"],
+            "rotate": ["0deg", "18deg", "1 3 2 18deg"],
             "scale": ["0", "1.8", "2 3", "2 3 1"],
         }
     },
@@ -853,9 +865,9 @@ window.Specs = {
             "text-emphasis-color": ["green", "rgba(102, 51, 153, 0.55)", "currentColor", "transparent"],
             "text-emphasis": ["none", "filled", "open", "dot", "circle", "filled dot", "open circle", "'foo'", "'汉字'", "'\\25B2'", "'foo' green", "dot #999", "filled dot #999", "open dot #999", "#999 filled dot", "#999 dot filled"],
             "text-emphasis-position": [
-              // Old value
+              // Old value is invalid
               "over", "under",
-              "over right", "over left", "under right", "under left"],
+              "over right", "over left", "under right", "under left", "right over", "left under"],
             "text-shadow": ["none", "1px 1px", "0 0 black", "1px 2px 3px black"]
         }
     },
@@ -2400,8 +2412,8 @@ window.Specs = {
         "title": "CSS Scroll Boundary Behavior",
         "properties": {
             "scroll-boundary-behavior": ["contain", "none", "auto"],
-            "scroll-boundary-behavior": ["contain", "none", "auto"],
-            "scroll-boundary-behavior": ["contain", "none", "auto"],
+            "scroll-boundary-behavior-x": ["contain", "none", "auto"],
+            "scroll-boundary-behavior-y": ["contain", "none", "auto"],
             // https://msdn.microsoft.com/zh-cn/library/windows/apps/hh466007.aspx
             "-ms-scroll-chaining": ["chained", "none"],
         },

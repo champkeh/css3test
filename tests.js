@@ -415,6 +415,9 @@ window.Specs = {
                 ".foo:not(.foo ~ .foo)"
             ],
             ":has()": ["a:has(> img)","dt:has(+ dt)","section:not(:has(h1, h2, h3, h4, h5, h6))"],
+            // Polyfill https://github.com/WICG/focus-ring
+            ":focus-ring": ":focus-ring",
+            ":focusring": ":focusring",
             ":focus-within": ":focus-within",
             ":drop": ":drop",
             ":drop()": [":drop(active)", ":drop(valid active invalid)"],
@@ -1077,10 +1080,12 @@ window.Specs = {
             ],
             "rebeccapurple": "rebeccapurple",
             "#RGBA": ["#0033ffcc", "#03fc"],
-            // CSS color 4 https://bugzilla.mozilla.org/show_bug.cgi?id=1295456
-            "rgb()": ["rgb(255, 0, 0, 0.6)", "rgb(0%, 0%, 100%, 80%)", "rgb(255, 0, 0, 80%)", "rgb(255 0 0 / 0.6)", "rgb(255 0 0 / 80%)"],
-            "rgba()": ["rgba(0%, 0%, 100%, 80%)", "rgba(255, 0, 0, 80%)", "rgba(255 0 0 / 0.4)", "rgba(255 0 0 / 40%)"],
-            "hsl()": ["hsl(120 60% 70%)", "hsl(0deg, 80%, 50%)", "hsl(120deg, 20%, 56%)", "hsl(120deg 60% 70%)", "hsl(240, 100%, 50%, 0.05)", "hsl(240, 100%, 50%, 5%)", "hsl(240 100% 50% / 0.05)", "hsl(240 100% 50% / 5%)", "hsl(orange greenish, 20%, 56%)", "hsl(orangish(20%) red, 20%, 56%)"],
+            // https://bugzilla.mozilla.org/show_bug.cgi?id=1295456
+            // https://bugs.chromium.org/p/chromium/issues/detail?id=788707
+            // Doc: https://www.xanthir.com/b4iW0
+            "rgb()": ["rgb(255, 0, 0, 0.6)", "rgb(0%, 0%, 100%, 80%)", "rgb(255, 0, 0, 80%)", "rgb(255 0 0 / 0.6)", "rgb(255 0 0 / 80%)", "rgb(128.0, 0, 0)", "rgb(128.5 0 0)", "rgb(0, calc(255 * 1.0), 0)"],
+            "rgba()": ["rgba(0%, 0%, 100%, 80%)", "rgba(255, 0, 0, 80%)", "rgba(255, 0, 0, 1.0)", "rgba(255 0 0 / 0.4)", "rgba(255 0 0 / 40%)", "rgba(255 0 0)", "rgba(255, 0, 0)", "rgba(128.0, 0, 0)", "rgba(128.5 0 0)", "rgba(0, calc(255 * 1.0), 0)"],
+            "hsl()": ["hsl(120 60% 70%)", "hsl(0deg, 80%, 50%)", "hsl(120deg, 20%, 56%)", "hsl(120deg 60% 70%)", "hsl(240, 100%, 50%, 0.05)", "hsl(240, 100%, 50%, 5%)", "hsl(240 100% 50% / 0.05)", "hsl(240 100% 50% / 5%)", "hsl(600.8deg, 100%, 30%, 90%)", "hsl(200.3 100% 50% / 50%)", "hsl(200.3 100% 50% / .5)", "hsl(orange greenish, 20%, 56%)", "hsl(orangish(20%) red, 20%, 56%)"],
             "hsla()": ["hsla(240 100% 50% / 0.05)", "hsla(240 100% 50% / 5%)", "hsla(240deg 100% 50% / 5%)", "hsla(240deg, 100%, 50%, 0.4)"],
             "gray()": ["gray(0)", "gray(16)", "gray(255, 50%)", "gray(255, .2)"],
             "hwb()": ["hwb(90, 0%, 0%, 0.5)", "hwb(190, 50%, 0%)", "hwb(190, 50%, 10%, .2)", "hwb(120deg, 44%, 50%)"],
@@ -2408,12 +2413,17 @@ window.Specs = {
     },
 
     // https://wicg.github.io/scroll-boundary-behavior/
-    "scroll-boundary-behavior": {
-        "title": "CSS Scroll Boundary Behavior",
+    "overscroll-behavior": {
+        "title": "CSS Overscroll Behavior",
         "properties": {
             "scroll-boundary-behavior": ["contain", "none", "auto"],
             "scroll-boundary-behavior-x": ["contain", "none", "auto"],
             "scroll-boundary-behavior-y": ["contain", "none", "auto"],
+            // Rename scroll-boundary-behavior to overscroll-behavior
+            // https://bugs.chromium.org/p/chromium/issues/detail?id=776776
+            "overscroll-behavior": ["contain", "none", "auto"],
+            "overscroll-behavior-x": ["contain", "none", "auto"],
+            "overscroll-behavior-y": ["contain", "none", "auto"],
             // https://msdn.microsoft.com/zh-cn/library/windows/apps/hh466007.aspx
             "-ms-scroll-chaining": ["chained", "none"],
         },

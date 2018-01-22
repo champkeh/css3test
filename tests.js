@@ -410,7 +410,7 @@ window.Specs = {
             ":any()": [".foo :any(h1, h2, h3, h4, h5, h6)", ":any(section, nav) h1", ":any(section, nav) ~ :any(h1, h2)", ":any(:hover, :focus)",
                 ":any(::before)", ":any(::after)", ":any(::after, ::before)"
             ],
-            ":not()": [":not(element, .class, #id)", ":not(element, .class, #id):not(.foo, .bar)","h2:not(:first-of-type, :last-of-type)", ":not(:matches(h1, h2))", ":not(:matches(h1, h2), h3)", ":not(:matches(:not(h1, h2)))", ":not(:not(.foo), .bar)", ":not(:not(:not(.foo)), .bar)", "img:not(.foo[alt][src])",
+            ":not()": [":not(p.foo)", ":not(.foo > .bar)", ":not(.foo + p)", ":not(element, .class, #id)", ":not(element, .class, #id):not(.foo, .bar)", "h2:not(:first-of-type, :last-of-type)", ":not(:matches(h1, h2))", ":not(:matches(h1, h2), h3)", ":not(:matches(:not(h1, h2)))", ":not(:not(.foo), .bar)", ":not(:not(:not(.foo)), .bar)", "img:not(.foo[alt][src])",
                 // 模拟 :nth-child(n of S)
                 ".foo:not(.foo ~ .foo)"
             ],
@@ -2122,6 +2122,10 @@ window.Specs = {
             "scroll-snap-type": ["none", "mandatory", "proximity x", "proximity y", "proximity block", "proximity inline", "proximity both", "proximity point"],
             "scroll-snap-padding": ["0", "13px", "3.68em", "12.321rem", "26vw", "92%", "calc(16% + 63px)", "3em 103px", "3em 0 28%", "3em 0 0 0"],
             "scroll-snap-margin": ["0", "13px", "3.68em", "12.321rem", "26vw", "calc(29px + 63px)", "18px 103px", "18px 0 0", "18px 0 0 0"],
+            "scroll-padding": ["0", "13px", "3.68em", "12.321rem", "26vw", "92%", "calc(16% + 63px)", "3em 103px", "3em 0 28%", "3em 0 0 0"],
+            // Rename scroll-snap-margin to scroll-margin
+            // https://bugs.chromium.org/p/chromium/issues/detail?id=792968
+            "scroll-margin": ["0", "13px", "3.68em", "12.321rem", "26vw", "calc(29px + 63px)", "18px 103px", "18px 0 0", "18px 0 0 0"],
             "scroll-snap-align": ["none", "start", "end", "center", "center none", "end center"],
             "scroll-snap-stop": ["normal", "always"]
         }

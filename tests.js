@@ -128,8 +128,11 @@ window.Specs = {
                 "linear-gradient(yellow, calc(50% - 60px), green)",
 
                 // Multiple Color-Stop Positions
-                // https://bugs.chromium.org/p/chromium/issues/detail?id=707047
+                // Chrome 71 https://www.chromestatus.com/feature/5712111258828800
+                // https://bugzilla.mozilla.org/show_bug.cgi?id=1352643
+                "linear-gradient(black 0% 100%)",
                 "linear-gradient(black 10% 20%, white)",
+                "linear-gradient(black 0% 50%, 0%, white 50%)",
                 "linear-gradient(95deg, black, white 100px 200px)",
                 "linear-gradient(to right, black 10% 20%, 10%, white 200px)"
             ],
@@ -170,9 +173,12 @@ window.Specs = {
 
                 // Multiple Color-Stop Positions
                 // https://bugs.chromium.org/p/chromium/issues/detail?id=707047
+                "radial-gradient(black 0% 100%)",
                 "radial-gradient(black 10% 20%, white)",
+                "radial-gradient(black 0% 50%, 0%, white 50%)",
                 "radial-gradient(50% 20%, black, white 100px 200px)",
-                "radial-gradient(circle, black 10% 20%, 10%, white 200px)"
+                "radial-gradient(circle, black 10% 20%, 10%, white 200px)",
+                "radial-gradient(ellipse 50px 10000px at 0px 50px, blue 0% 50px, green 50px)"
             ],
             "repeating-linear-gradient()": [
                 "repeating-linear-gradient(white, black)",
@@ -405,7 +411,10 @@ window.Specs = {
             ":past": ":past",
             ":future": ":future",
             ":matches()": ["*|*:matches(:hover, :focus)", "*|*:matches(*:hover, *:focus)", ".foo :matches(h1, h2, h3, h4, h5, h6)", ":matches(section, nav) h1", ":matches(section, nav) ~ :matches(h1, h2)", ":matches(:hover, :focus)", ":matches(h1 + h2, h3 > h4)", ":matches(.foo :matches(h1, h2))", ":matches(:matches(h1, h2), h3)", ":matches(:not(.foo, .bar))",
-              ":matches(::before)", ":matches(::after)", ":matches(::after, ::before)"
+              ":matches(::before)", ":matches(::after)", ":matches(::after, ::before)",
+              ":hover:matches(::before)",
+              // 非法
+              ":matches(::before):hover",
             ],
             ":any()": [".foo :any(h1, h2, h3, h4, h5, h6)", ":any(section, nav) h1", ":any(section, nav) ~ :any(h1, h2)", ":any(:hover, :focus)",
                 ":any(::before)", ":any(::after)", ":any(::after, ::before)"
@@ -416,8 +425,10 @@ window.Specs = {
             ],
             ":has()": ["a:has(> img)","dt:has(+ dt)","section:not(:has(h1, h2, h3, h4, h5, h6))"],
             // Polyfill https://github.com/WICG/focus-ring
+            // Rename to :focus-visible https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo
             ":focus-ring": ":focus-ring",
             ":focusring": ":focusring",
+            ":focus-visible": [":focus-visible", ":focus:not(:focus-visible)"],
             ":focus-within": ":focus-within",
             ":drop": ":drop",
             ":drop()": [":drop(active)", ":drop(valid active invalid)"],
@@ -1364,7 +1375,9 @@ window.Specs = {
                 "repeat(auto-fit, [a] 20px [b]) [c] 30px [d]",
                 "repeat(auto-fit,[] 1%)",
 
-                //  multiple tracks on auto repeat()
+                // multiple tracks on auto repeat()
+                // Firefox bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1341507
+                // Chrome bug: https://codepen.io/kizu/pen/paayMm?editors=1100
                 "repeat(auto-fill, 100px 50px)",
                 "repeat(auto-fill, auto 1fr 18%)",
                 "repeat(auto-fill, 100% auto 1fr 10em)",
@@ -1848,7 +1861,7 @@ window.Specs = {
             // basic shapes for clip-path
             // Firefox used flag: layout.css.clip-path-shapes.enabled
             // https://bugzilla.mozilla.org/show_bug.cgi?id=1110460
-            "circle()", "circle(38.6% at 56% 51%)", "circle(closest-side)", "circle(farthest-side)", "ellipse()", "ellipse(26% 45% at 58% 52%)", "ellipse(closest-side farthest-side)", "ellipse(farthest-side farthest-side)", "polygon(50% 0%, 0% 100%, 100% 100%)", "polygon(5em 13px, 76% 280px, 0 230px)", "polygon(nonzero, 5em 13px, 76% 280px, 0 230px)", "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)", "border-box", "padding-box", "content-box", "margin-box", "fill-box", "stroke-box", "view-box", "circle() border-box"],
+            "circle()", "circle(38.6% at 56% 51%)", "circle(closest-side)", "circle(farthest-side)", "ellipse()", "ellipse(26% 45% at 58% 52%)", "ellipse(closest-side farthest-side)", "ellipse(farthest-side farthest-side)", "polygon(50% 0%, 0% 100%, 100% 100%)", "polygon(5em 13px, 76% 280px, 0 230px)", "polygon(nonzero, 5em 13px, 76% 280px, 0 230px)", "polygon(evenodd, 5em 13px, 76% 280px, 0 230px)", "border-box", "padding-box", "content-box", "margin-box", "fill-box", "stroke-box", "view-box", "circle() border-box", "circle(38.6% at 56% 51%) fill-box", "fill-box circle(50% at 50% 50%)"],
             "clip-rule": ["nonzero", "evenodd"],
             "mask-type": ["alpha", "luminance"],
             "mask-image": [

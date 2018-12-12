@@ -1128,8 +1128,9 @@ window.Specs = {
             "column-rule": ["transparent", "1px solid black"],
             "column-span": ["none", "all"],
             "column-fill": ["auto", "balance", "balance-all"],
-            "break-before": ["auto", "avoid", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column", "column", "avoid-region", "region"],
-            "break-after": ["auto", "avoid", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column", "column", "avoid-region", "region"],
+            // Add 'always' and 'all' value https://github.com/w3c/csswg-drafts/issues/3318
+            "break-before": ["auto", "avoid", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column", "column", "avoid-region", "region", "always", "all"],
+            "break-after": ["auto", "avoid", "avoid-page", "page", "left", "right", "recto", "verso", "avoid-column", "column", "avoid-region", "region", "always", "all"],
             "break-inside": ["auto", "avoid", "avoid-page", "avoid-column", "avoid-region"],
 
             //Only WebKit/Blink support width -webkit-

@@ -1,4 +1,4 @@
-var Score = function(parent) {
+var Score = function (parent) {
   this.passed = this.total =
     this.passedTests = this.totalTests = 0;
 
@@ -6,7 +6,7 @@ var Score = function(parent) {
 };
 
 Score.prototype = {
-  update: function(data) {
+  update: function (data) {
     if (!data.total) {
       return;
     }
@@ -22,11 +22,11 @@ Score.prototype = {
     }
   },
 
-  toString: function() {
+  toString: function () {
     return this.percent() + '%';
   },
 
-  percent: function() {
+  percent: function () {
     return Math.round(100 * this.passed / this.total);
   }
 };
@@ -34,7 +34,7 @@ Score.prototype = {
 var mainScore = new Score(),
   _bTestResults = {};
 
-var Test = function(tests, spec, title, wg) {
+var Test = function (tests, spec, title, wg) {
   this.tests = tests;
   this.id = spec;
   this.title = title;
@@ -130,7 +130,7 @@ var Test = function(tests, spec, title, wg) {
 }
 
 Test.prototype = {
-  group: function(what, testCallback) {
+  group: function (what, testCallback) {
     var thisSection, theseTests = this.tests[what];
 
     for (var feature in theseTests) {
@@ -210,7 +210,7 @@ Test.prototype = {
 }
 
 Test.groups = {
-  'values': function(test, label, tests) {
+  'values': function (test, label, tests) {
     var properties = tests.properties,
       failed = [];
 
@@ -233,19 +233,19 @@ Test.groups = {
     }
   },
 
-  'properties': function(value, property) {
+  'properties': function (value, property) {
     return Supports.value(property, value);
   },
 
-  'selectors': function(test) {
+  'selectors': function (test) {
     return Supports.selector(test);
   },
 
-  '@rules': function(test) {
+  '@rules': function (test) {
     return Supports.atrule(test);
   },
 
-  'Media queries': function(test) {
+  'Media queries': function (test) {
     var matches = matchMedia(test);
 
     return matches.media !== 'invalid' && matches.matches;
@@ -281,7 +281,7 @@ function passclass(info) {
   return classes[index];
 }
 
-document.onclick = function(evt) {
+document.onclick = function (evt) {
   var target = evt.target;
 
   if (/^dt$/i.test(target.nodeName)) {
@@ -293,11 +293,11 @@ document.onclick = function(evt) {
   }
 }
 
-Array.prototype.and = function(arr2, separator) {
+Array.prototype.and = function (arr2, separator) {
   separator = separator || ' ';
 
   var ret = [],
-    map = function(val) {
+    map = function (val) {
       return val + separator + arr2[j]
     };
 
@@ -309,7 +309,7 @@ Array.prototype.and = function(arr2, separator) {
 };
 
 // [ x or y or z ]{min, max}
-Array.prototype.times = function(min, max, separator) {
+Array.prototype.times = function (min, max, separator) {
   separator = separator || ' ';
 
   max = max || min;
@@ -336,7 +336,7 @@ Array.prototype.times = function(min, max, separator) {
   return ret;
 };
 
-onload = function() {
+onload = function () {
   var timeBefore = +new Date,
     duration = 0;
 
@@ -346,7 +346,7 @@ onload = function() {
     specs.push(spec);
   }
 
-  (function() {
+  (function () {
     if (specs.length) {
       // Get spec id
       var spec = specs.shift();
@@ -356,7 +356,7 @@ onload = function() {
 
       // Count test duration
       duration += +new Date - timeBefore;
-      timeBefore = +new Date;
+      // timeBefore = +new Date;
 
       // Output current score
       score.textContent = mainScore + '';
@@ -365,7 +365,7 @@ onload = function() {
       total.textContent = mainScore.total;
 
       // Schedule next test
-      setTimeout(arguments.callee, 50)
+      setTimeout(arguments.callee, 0)
     } else {
       // Done!
 
@@ -373,17 +373,17 @@ onload = function() {
       timeTaken.textContent = +new Date - timeBefore + 'ms';
 
       // Send to Browserscope
-      var testKey = 'agt1YS1wcm9maWxlcnINCxIEVGVzdBidzawNDA';
+      // var testKey = 'agt1YS1wcm9maWxlcnINCxIEVGVzdBidzawNDA';
 
-      _bTestResults['Overall'] = mainScore.percent();
+      // _bTestResults['Overall'] = mainScore.percent();
 
-      $u.element.create({
-        tag: 'script',
-        properties: {
-          src: '//www.browserscope.org/user/beacon/' + testKey
-        },
-        inside: $('head')
-      });
+      // $u.element.create({
+      //   tag: 'script',
+      //   properties: {
+      //     src: '//www.browserscope.org/user/beacon/' + testKey
+      //   },
+      //   inside: $('head')
+      // });
     }
   })();
 

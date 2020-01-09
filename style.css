@@ -139,6 +139,10 @@ dt, dd[class] {
 dt {
 	cursor: pointer;
 }
+dt:focus {
+	outline: none;
+	border: none;
+}
 
 dd {
 	margin: .3em 0 .3em 2em;
